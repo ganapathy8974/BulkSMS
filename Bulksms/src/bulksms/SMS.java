@@ -9,7 +9,7 @@ public class SMS {
 	public static void main(String[] args) {
 		SMS sms = new SMS();
 		String message = "Hello this is ganu";
-		//If you want send bulk SMS enter the numbers with cama -EX: 1234567890,1234567890
+		//If you want send bulk SMS enter the numbers with comma -EX: 1234567890,1234567890
 		String numbers = "9543510240";
 		sms.sendSms(message, numbers);
 	}
@@ -21,7 +21,7 @@ public class SMS {
 		String flash="0";	
 		String encoding = "UTF-8";		
 		try {
-			
+			//Creating QueryString 
 			String queryString ="authorization=" + URLEncoder.encode(api, encoding)
 	        + "&route=" + URLEncoder.encode(route, encoding)
 	        + "&sender_id=" + URLEncoder.encode(sender_id, encoding)
@@ -30,13 +30,17 @@ public class SMS {
 	        + "&flash=" + URLEncoder.encode(flash, encoding)
 	        + "&numbers=" + URLEncoder.encode(numbers, encoding);
 			
+			//URL Object Creation 
 			URL url = new URL("https://www.fast2sms.com/dev/bulkV2?"+queryString);			
 			URLConnection conn = url.openConnection();
-			conn.setDoOutput(true);				   
+			conn.setDoOutput(true);	
+			//Store the Response into the Buffered Reader
 		    BufferedReader rd = new BufferedReader(new java.io.InputStreamReader(conn.getInputStream()));
+		    //Move the result to a String
 		    String result = rd.readLine();		   
 		    rd.close();
 		    
+		    //Validate the result and display the output in console.
 		    if(result == null) {
 		        System.out.println("No response received");
 		      }
